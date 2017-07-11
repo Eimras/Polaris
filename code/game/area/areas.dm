@@ -75,6 +75,8 @@
 /area/proc/firedoors_close()
 	if(!firedoors_closed)
 		firedoors_closed = TRUE
+		if(!all_doors)
+			return
 		for(var/obj/machinery/door/firedoor/E in all_doors)
 			if(!E.blocked)
 				if(E.operating)
@@ -87,6 +89,8 @@
 /area/proc/firedoors_open()
 	if(firedoors_closed)
 		firedoors_closed = FALSE
+		if(!all_doors)
+			return
 		for(var/obj/machinery/door/firedoor/E in all_doors)
 			if(!E.blocked)
 				if(E.operating)
@@ -266,9 +270,11 @@ var/list/mob/living/forced_ambiance_list = new
 
 	if(istype(mob,/mob/living/carbon/human/))
 		var/mob/living/carbon/human/H = mob
+		if(H.buckled)
+			return // Being buckled to something solid keeps you in place.
 		if(istype(H.shoes, /obj/item/clothing/shoes/magboots) && (H.shoes.item_flags & NOSLIP))
 			return
-
+		
 		if(H.m_intent == "run")
 			H.AdjustStunned(6)
 			H.AdjustWeakened(6)

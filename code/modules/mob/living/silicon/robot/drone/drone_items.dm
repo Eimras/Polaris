@@ -74,9 +74,11 @@
 		/obj/item/organ/internal/brain, //to insert into MMIs,
 		/obj/item/weapon/disk,
 		/obj/item/weapon/circuitboard,
-		/obj/item/slime_extract,
 		/obj/item/weapon/reagent_containers/glass,
-		/obj/item/weapon/reagent_containers/food/snacks/monkeycube
+		/obj/item/weapon/reagent_containers/food/snacks/monkeycube,
+		/obj/item/xenoproduct/slime/core,
+		/obj/item/device/assembly/prox_sensor
+//		/obj/item/slime_extract,		### Outdated
 
 		)
 
@@ -184,7 +186,7 @@
 		wrapped.force = 0.0
 		wrapped.attack(M,user)
 		M.attackby(wrapped, user)	//attackby reportedly gets procced by being clicked on, at least according to Anewbe.
-		if(deleted(wrapped) || wrapped.loc != src.loc)
+		if(QDELETED(wrapped) || wrapped.loc != src.loc)
 			wrapped = null
 		return 1
 	return 0

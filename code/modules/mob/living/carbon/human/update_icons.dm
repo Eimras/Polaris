@@ -274,6 +274,9 @@ var/global/list/damage_icon_parts = list()
 
 			if(part.robotic >= ORGAN_ROBOT)
 				icon_key += "2[part.model ? "-[part.model]": ""]"
+				robolimb_count++
+				if(part.organ_tag == BP_HEAD || part.organ_tag == BP_TORSO || part.organ_tag == BP_GROIN)
+					robobody_count ++
 			else if(part.status & ORGAN_DEAD)
 				icon_key += "3"
 			else
@@ -440,7 +443,7 @@ var/global/list/damage_icon_parts = list()
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
 	..()
-	if(transforming)		return
+	if(transforming || QDELETED(src))		return
 
 	update_mutations(0)
 	update_body(0)
